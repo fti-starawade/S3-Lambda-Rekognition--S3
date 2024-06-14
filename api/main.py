@@ -1,7 +1,6 @@
 import uvicorn
 import os
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import JSONResponse
 import logging
 from config import Config
 from resolver import upload_file, get_processed_video_path
@@ -33,7 +32,7 @@ async def upload_video(fileb: UploadFile = File(...)):
         # Check if upload and processing were successful
         if response and response.get("status") == "Upload and processing successful":
             # Return success response
-            return {"status": "Upload and processing successful", "filename": fileb.filename, "statuscode": 200}
+            return {"status": "Upload and processing successful", "filename": fileb.filename, "status_code": 200}
         else:
             # Return error response if upload or processing failed
             raise HTTPException(status_code=500, detail="Upload or processing failed")
@@ -52,7 +51,7 @@ async def download_video(filename: str):
         
         if response and response.get("file_path"):
             # Return success response with the file path
-            return {"status": "Downloaded successfully", "file_path": response["file_path"], "statuscode": 200}
+            return {"status": "Downloaded successfully", "file_path": response["file_path"], "status_code": 200}
         else:
             # Return error response if file path is not found or other errors occur
             raise HTTPException(status_code=404, detail="Processed video not found")
