@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: api-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./uploaded_videos:/usr/src/app/uploaded_videos
+    environment:
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - INPUT_BUCKET=${INPUT_BUCKET}
+      - OUTPUT_BUCKET=${OUTPUT_BUCKET}
+      - LOG_LEVEL=2 #set to Logging at info level
+    networks:
+      - video_app_network
+
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    image: ui-service
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./uploaded_videos:/usr/src/app/uploaded_videos
+    depends_on:
+      - api
+    networks:
+      - video_app_network
+
+networks:
+  video_app_network:
+    driver: bridge
