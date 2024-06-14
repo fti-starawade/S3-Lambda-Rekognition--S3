@@ -95,7 +95,7 @@ def main():
         # Upload in progress
         if st.session_state.upload_in_progress:
             with st.spinner("Uploading and Processing..."):
-                upload_dir = "/home/fti-starawade/S3-Lambda-Rekognition--S3/usr/src/app/uploaded_video"
+                upload_dir = "/usr/src/app/uploaded_video"
                 os.makedirs(upload_dir, exist_ok=True)
 
                 file_path = os.path.join(upload_dir, st.session_state.file.name)
