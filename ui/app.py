@@ -130,7 +130,7 @@ def main():
             logging.debug("Setting initial: False")
 
     # Video comparison
-    if not st.session_state.initial:
+    if not st.session_state.initial and st.session_state.downloaded_file_path:
         st.markdown("<h2>Video Comparison</h2>", unsafe_allow_html=True)
         col1, col2 = st.columns(2)
 
@@ -143,5 +143,4 @@ def main():
             st.video(st.session_state.downloaded_file_path)
 
 if __name__ == "__main__":
-    logging.info("Restarted")
     main()
