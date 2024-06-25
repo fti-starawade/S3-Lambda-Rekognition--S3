@@ -6,7 +6,6 @@ from rich.logging import RichHandler
 
 API_URL = "http://api:8000"  # Assuming FastAPI server runs locally on port 8000
 
-
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -120,6 +119,7 @@ def main():
                         download_response = download_file(filename)
                         if download_response and download_response.get("status_code") == 200:
                             st.session_state.downloaded_file_path = download_response["file_path"]
+                            logging.info(f'download_response["file_path"]: {download_response["file_path"]}')
                             st.session_state.download_in_progress = False
                             st.success("Downloaded Processed Video Successfully!")
                             logging.debug("Downloaded Processed Video Successfully")
