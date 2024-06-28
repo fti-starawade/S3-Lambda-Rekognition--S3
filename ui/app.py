@@ -143,5 +143,4 @@ def main():
             st.video(st.session_state.downloaded_file_path)
 
 if __name__ == "__main__":
-    print()
     main()
